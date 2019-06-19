@@ -18,4 +18,7 @@ COPY --from=storefront /usr/src/atsea/app/react-app/build/ .
 WORKDIR /app
 COPY --from=appserver /usr/src/atsea/target/AtSea-0.0.1-SNAPSHOT.jar .
 ENTRYPOINT ["java", "-jar", "/app/AtSea-0.0.1-SNAPSHOT.jar"]
+
+EXPOSE 5005 8080
+
 CMD ["--spring.profiles.active=postgres"]
