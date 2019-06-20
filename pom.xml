@@ -148,11 +148,11 @@
   <distributionManagement>
       <repository>
           <id>releases</id>
-          <url>https://nexus-jx.dh-dev-1.k8.devfactory.com/maven-releases</url>
+          <url>https://nexus/repository/maven-releases</url>
       </repository>
       <snapshotRepository>
           <id>snapshots</id>
-          <url>https://nexus-jx.dh-dev-1.k8.devfactory.com/maven-snapshots</url>
+          <url>https://nexus/repository/maven-snapshots</url>
       </snapshotRepository>
   </distributionManagement>
 
