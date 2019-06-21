@@ -1,1 +1,1 @@
-# atsea-sample-shop-app-main
+# atsea-shop-app
