@@ -1,13 +1,19 @@
-{{- if not .Values.isstateful -}}
-apiVersion: extensions/v1beta1
-kind: Deployment
+{{- if .Values.isstateful -}}
+{{- $root := . -}}
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   name: {{ template "fullname" . }}
   labels:
     draft: {{ default "draft-app" .Values.draft }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
+  selector:
+    matchLabels:
+      draft: {{ default "draft-app" .Values.draft }}
+      app: {{ template "fullname" . }}
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ template "fullname" . }}
   template:
     metadata:
       labels:
@@ -18,8 +24,14 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
-{{- if .Values.sidecar_present }}      
+      terminationGracePeriodSeconds: 1800
       volumes:
+{{- range $i, $volume := .Values.volumes }}
+      - name: vol-{{ $root.Values.service.key }}-{{$i}}
+        persistentVolumeClaim:
+          claimName: pvc-{{ $root.Values.service.key }}-{{$i}}
+{{- end }}      
+{{- if .Values.sidecar_present }}      
       - name: sidecar-shared-volume
         emptyDir: {}
 {{- end }}        
@@ -36,13 +48,18 @@ spec:
 {{- range $port := .Values.ports }}
         - containerPort: {{ $port.internalPort }}
 {{- end }}
-{{- if .Values.sidecar_present }}
         volumeMounts:
+{{- range $i, $volume := .Values.volumes }}      
+        - mountPath: "{{ $volume.mountPath }}"
+          name: vol-{{ $root.Values.service.key }}-{{$i}}
+{{- end }}   
+{{- if .Values.sidecar_present }}
         - name: sidecar-shared-volume
           mountPath: {{ .Values.sidecar_main_mount }}
 {{- end }}                  
         resources:
 {{ toYaml .Values.resources | indent 12 }}
+
 {{- if .Values.sidecar_present }}
       - name: {{ .Values.sidecar_service_name }}
         image: "{{ .Values.sidecar_image }}"
@@ -51,6 +68,10 @@ spec:
         - containerPort: {{ $port.internalPort }}
 {{- end }}
         volumeMounts:
+{{- range $i, $volume := .Values.sidecar_volumes }}      
+        - mountPath: "{{ $volume.mountPath }}"
+          name: svol-{{ $root.Values.service.key }}-{{$i}}
+{{- end }}   
         - name: sidecar-shared-volume
           mountPath: {{ .Values.sidecar_sidecar_mount }}                  
 {{- end }}
