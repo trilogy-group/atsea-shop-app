@@ -8,8 +8,8 @@ namespaces:
 basedomain: dh-dev-1.k8.devfactory.com
 
 image:
-  repository: image
-  tag: tag
+  repository: 082830052325.dkr.ecr.us-east-1.amazonaws.com/cn-devhub-playground/atsea-shop-app
+  tag: 0.0.92
   pullPolicy: IfNotPresent
 
 replicaCount: 1
