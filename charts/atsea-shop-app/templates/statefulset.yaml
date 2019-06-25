@@ -1,13 +1,19 @@
-{{- if not .Values.isstateful -}}
-apiVersion: extensions/v1beta1
-kind: Deployment
+{{- if .Values.isstateful -}}
+{{- $root := . -}}
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   name: {{ template "fullname" . }}
   labels:
     draft: {{ default "draft-app" .Values.draft }}
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
+  selector:
+    matchLabels:
+      draft: {{ default "draft-app" .Values.draft }}
+      app: {{ template "fullname" . }}
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ template "fullname" . }}
   template:
     metadata:
       labels:
@@ -18,6 +24,13 @@ spec:
 {{ toYaml .Values.podAnnotations | indent 8 }}
 {{- end }}
     spec:
+      terminationGracePeriodSeconds: 1800
+      volumes:
+{{- range $i, $volume := .Values.volumes }}
+        - name: vol-{{ $root.Values.service.key }}-{{$i}}
+          persistentVolumeClaim:
+            claimName: pvc-{{ $root.Values.service.key }}-{{$i}}
+{{- end }}      
       containers:
       - name: {{ .Chart.Name }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -31,6 +44,11 @@ spec:
 {{- range $port := .Values.ports }}
         - containerPort: {{ $port.internalPort }}
 {{- end }}
+        volumeMounts:
+{{- range $i, $volume := .Values.volumes }}      
+          - mountPath: "{{ $volume.mountPath }}"
+            name: vol-{{ $root.Values.service.key }}-{{$i}}
+{{- end }}        
         resources:
 {{ toYaml .Values.resources | indent 12 }}
 {{- end -}}
