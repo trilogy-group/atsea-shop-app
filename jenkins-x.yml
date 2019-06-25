@@ -1,1 +1,5 @@
 buildPack: maven-ci
+pipelineConfig:
+  env:
+  - name: COVERALLS_TOKEN
+    value: sDzHuWARi93T3JN7QIeG6KELKdmumYOC4
