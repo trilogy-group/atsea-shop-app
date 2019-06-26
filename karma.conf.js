@@ -26,7 +26,8 @@ module.exports = function(config) {
       'karma-jasmine',
       'karma-sourcemap-loader',
       'karma-webpack',
-      'karma-coverage'
+      'karma-coverage',
+      'karma-htmlfile-reporter'
     ],
     preprocessors: {
       'src/**/*.spec.js': ['webpack', 'sourcemap']
@@ -35,9 +36,24 @@ module.exports = function(config) {
 
     coverageReporter: {
       dir: 'coverage-reports',
-      reporters: [{ type: 'lcov', subdir: 'report-lcov' }]
+      reporters: [
+        { type: 'lcov', subdir: 'report-lcov' },
+        { type: 'cobertura', subdir: 'js-coverage', file: 'cobertura.xml' },
+      ]
     },
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress', 'coverage','html'],
+    htmlReporter: {
+      outputFile: 'tests/units.html',
+            
+      // Optional
+      pageTitle: 'JavaScript test run results',
+      subPageTitle: '',
+      groupSuites: true,
+      useCompactStyle: true,
+      useLegacyStyle: true,
+      showOnlyFailed: false
+    },
+
     webpack: {
       devtool: 'inline-source-map',
       resolve: {
@@ -47,7 +63,11 @@ module.exports = function(config) {
         rules: [
           {
             test: /\.jsx?$/,
-            use: 'babel-loader'
+            use: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-react', '@babel/preset-env'].map(require.resolve),
+              plugins: ['@babel/plugin-proposal-class-properties'].map(require.resolve)
+            }
           },
           {
             test: /\.jsx?$/,
