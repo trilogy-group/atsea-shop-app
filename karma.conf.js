@@ -37,7 +37,7 @@ module.exports = function(config) {
     coverageReporter: {
       dir: 'coverage-reports',
       reporters: [
-        { type: 'lcov', subdir: 'report-lcov' },
+        // { type: 'lcov', subdir: 'report-lcov' },
         { type: 'cobertura', subdir: 'js-coverage', file: 'cobertura.xml' },
       ]
     },
@@ -63,10 +63,12 @@ module.exports = function(config) {
         rules: [
           {
             test: /\.jsx?$/,
-            use: 'babel-loader',
-            options: {
-              presets: ['@babel/preset-react', '@babel/preset-env'].map(require.resolve),
-              plugins: ['@babel/plugin-proposal-class-properties'].map(require.resolve)
+            use: {
+              loader: 'babel-loader',
+              options: {
+                presets: ['@babel/preset-react', '@babel/preset-env'].map(require.resolve),
+                plugins: ['@babel/plugin-proposal-class-properties'].map(require.resolve)
+              }
             }
           },
           {
