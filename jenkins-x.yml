@@ -1,5 +1,7 @@
 buildPack: maven-ci
 pipelineConfig:
   env:
-  - name: COVERALLS_TOKEN
+  - name: COVERALLS_TOKEN  
     value: sDzHuWARi93T3JN7QIeG6KELKdmumYOC4
+  - name: JS_CODE_SUBDIR
+    value: react-app
