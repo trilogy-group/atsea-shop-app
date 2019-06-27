@@ -38,7 +38,7 @@ module.exports = function(config) {
       dir: 'coverage-reports',
       reporters: [
         // { type: 'lcov', subdir: 'report-lcov' },
-        { type: 'cobertura', subdir: 'js-coverage', file: 'cobertura.xml' },
+        { type: 'cobertura', subdir: 'coverage', file: 'js-cobertura.xml' },
       ]
     },
     reporters: ['progress', 'coverage','html'],
