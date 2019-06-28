@@ -26,7 +26,7 @@ module.exports = function(config) {
       'karma-jasmine',
       'karma-sourcemap-loader',
       'karma-webpack',
-      'karma-coverage',
+      'karma-coverage-istanbul-reporter',
       'karma-htmlfile-reporter'
     ],
     preprocessors: {
@@ -34,14 +34,14 @@ module.exports = function(config) {
       //      'tests.webpack.js': ['webpack', 'sourcemap']
     },
 
-    coverageReporter: {
+    coverageIstanbulReporter: {
       dir: 'coverage-reports',
       reporters: [
         // { type: 'lcov', subdir: 'report-lcov' },
         { type: 'cobertura', subdir: 'coverage', file: 'js-cobertura.xml' },
       ]
     },
-    reporters: ['progress', 'coverage','html'],
+    reporters: ['progress', 'coverage-istanbul','html'],
     htmlReporter: {
       outputFile: 'tests/units.html',
             
@@ -63,6 +63,8 @@ module.exports = function(config) {
         rules: [
           {
             test: /\.jsx?$/,
+            include: path.resolve(__dirname, 'src'),
+            exclude: /(bower_components|node_modules|__tests__)/,
             use: {
               loader: 'babel-loader',
               options: {
@@ -73,8 +75,7 @@ module.exports = function(config) {
           },
           {
             test: /\.jsx?$/,
-            include: [path.resolve(__dirname, 'src')],
-            exclude: [path.resolve(__dirname, 'node_modules')],
+            exclude: /node_modules|\.spec\.js$/,
             enforce: 'post',
             use: {
               loader: 'istanbul-instrumenter-loader',
