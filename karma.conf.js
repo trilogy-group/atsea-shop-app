@@ -34,6 +34,14 @@ module.exports = function(config) {
       //      'tests.webpack.js': ['webpack', 'sourcemap']
     },
 
+	coverageReporter: {
+      dir: 'coverage-reports',
+      reporters: [
+        // { type: 'lcov', subdir: 'report-lcov' },
+        { type: 'cobertura', subdir: 'coverage', file: 'js-cobertura.xml' },
+      ]
+    },
+
     coverageIstanbulReporter: {
       dir: 'coverage-reports',
       reporters: [
