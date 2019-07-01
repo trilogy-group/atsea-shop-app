@@ -43,12 +43,8 @@ module.exports = function(config) {
       ]
     },
 
-    coverageIstanbulReporter: {
-      dir: 'coverage-reports',
-      reporters: [
-        // { type: 'lcov', subdir: 'report-lcov' },
-        { type: 'cobertura', subdir: 'coverage', file: 'js-cobertura.xml' },
-      ]
+    coverageIstanbulReporter: {      
+      reporters: ['cobertura'] 
     },
     reporters: ['progress', 'coverage-istanbul','html', 'coverage'],
     htmlReporter: {
