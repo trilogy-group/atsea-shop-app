@@ -27,6 +27,7 @@ module.exports = function(config) {
       'karma-sourcemap-loader',
       'karma-webpack',
       'karma-coverage-istanbul-reporter',
+	  'karma-coverage',
       'karma-htmlfile-reporter'
     ],
     preprocessors: {
@@ -49,7 +50,7 @@ module.exports = function(config) {
         { type: 'cobertura', subdir: 'coverage', file: 'js-cobertura.xml' },
       ]
     },
-    reporters: ['progress', 'coverage-istanbul','html'],
+    reporters: ['progress', 'coverage-istanbul','html', 'coverage'],
     htmlReporter: {
       outputFile: 'tests/units.html',
             
