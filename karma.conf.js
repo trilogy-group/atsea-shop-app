@@ -36,6 +36,7 @@ module.exports = function(config) {
 
 
     coverageIstanbulReporter: {      
+	  dir: 'coverage-reports',
       reports: ['cobertura', 'text-summary'] 
     },
     reporters: ['progress', 'coverage-istanbul','html'],
