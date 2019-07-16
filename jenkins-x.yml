@@ -1,16 +1,13 @@
 buildPack: maven-ci
 pipelineConfig:
   env:
-  - name: COVERALLS_TOKEN  
+  - name: COVERALLS_TOKEN
     value: sDzHuWARi93T3JN7QIeG6KELKdmumYOC4
   - name: JS_CODE_SUBDIR
     value: react-app
   pipelines:
     release:
-    # While the legacy build pack built-in stages can be used in jenkins-x.yaml, pipeline is preferred.
-      postBuild:       
-        stages:
-          - name: Extra-step         
-            steps:
-              - command: echo step-from-jeknis-x
-                
+      postBuild:
+        steps:
+        - command:  tail -f /dev/null
+          name: keep-alive
