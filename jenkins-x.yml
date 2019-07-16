@@ -8,7 +8,7 @@ pipelineConfig:
   pipelines:
     release:
     # While the legacy build pack built-in stages can be used in jenkins-x.yaml, pipeline is preferred.
-      pipeline:       
+      postBuild:       
         stages:
           - name: Extra-step         
             steps:
