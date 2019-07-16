@@ -5,3 +5,12 @@ pipelineConfig:
     value: sDzHuWARi93T3JN7QIeG6KELKdmumYOC4
   - name: JS_CODE_SUBDIR
     value: react-app
+  pipelines:
+    release:
+    # While the legacy build pack built-in stages can be used in jenkins-x.yaml, pipeline is preferred.
+      pipeline:       
+        stages:
+          - name: Extra-step         
+            steps:
+              - command: echo step-from-jeknis-x
+                
