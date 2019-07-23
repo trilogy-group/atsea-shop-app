@@ -41,7 +41,7 @@ module.exports = function(config) {
     },
     reporters: ['progress', 'coverage-istanbul','html'],
     htmlReporter: {
-      outputFile: 'workspace/source/artifacts/test-results/units.html',
+      outputFile: '../artifacts/test-results/units.html',
             
       // Optional
       pageTitle: 'JavaScript test run results',
