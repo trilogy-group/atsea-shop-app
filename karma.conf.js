@@ -36,12 +36,12 @@ module.exports = function(config) {
 
 
     coverageIstanbulReporter: {      
-	  dir: 'coverage-reports',
+	  dir: '/workspace/source/artifacts/coverage',
       reports: ['cobertura', 'text-summary'] 
     },
     reporters: ['progress', 'coverage-istanbul','html'],
     htmlReporter: {
-      outputFile: 'tests/units.html',
+      outputFile: 'workspace/source/artifacts/test-results/units.html',
             
       // Optional
       pageTitle: 'JavaScript test run results',
