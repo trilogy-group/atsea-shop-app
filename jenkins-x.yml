@@ -14,5 +14,6 @@ pipelineConfig:
     release:
       build:
         steps:
-          - command: ' tail -f /dev/null'           
+          - command:  echo skip this # ' tail -f /dev/null'           
             image: gcr.io/jenkinsxio/builder-maven 
+            name: keep-alive
