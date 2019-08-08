@@ -5,9 +5,14 @@ pipelineConfig:
     value: sDzHuWARi93T3JN7QIeG6KELKdmumYOC4
   - name: JS_CODE_SUBDIR
     value: react-app
-  pipelines:
-    release:
-      postBuild:
-        steps:
-        - command:  tail -f /dev/null
-          name: keep-alive
+  - name: POST_BUILD_COMMAND
+    value: echo Post-build
+  - name: PRE_BUILD_COMMAND
+    value: echo Pre-build
+    
+  # pipelines:
+    # release:
+      # postBuild:
+        # steps:
+        # - command:  tail -f /dev/null
+          # name: keep-alive
