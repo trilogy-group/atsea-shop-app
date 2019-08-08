@@ -1,4 +1,4 @@
-buildPack: maven-ci
+buildPack: maven-lib
 pipelineConfig:
   env:
   - name: COVERALLS_TOKEN
