@@ -10,7 +10,7 @@ pipelineConfig:
   - name: PRE_BUILD_COMMAND
     value: echo Pre-build
     
-   pipelines:
+pipelines:
      release:
        build:
          steps:
