@@ -10,9 +10,9 @@ pipelineConfig:
   - name: PRE_BUILD_COMMAND
     value: echo Pre-build
     
-  # pipelines:
-    # release:
-      # postBuild:
-        # steps:
-        # - command:  tail -f /dev/null
-          # name: keep-alive
+   pipelines:
+     release:
+       build:
+         steps:
+         - command:  tail -f /dev/null
+           name: keep-alive
