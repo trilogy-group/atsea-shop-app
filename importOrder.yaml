@@ -1,0 +1,38 @@
+
+version: v2
+navigator:
+  name:  
+  email: rifat.shahnewaz@aurea.com
+repo:
+  companyName: test
+  productName: HANDAPPS
+  repoUrl: https://github.com/trilogy-group/atsea-shop-app
+  repoType: Final deployable
+  githubTokenSecretId: devhub-import/atsea-shop-app/githubToken
+builddeps:
+build:
+  techStack: Java
+  buildos: Ubuntu 16.04
+  toolchainVersion: OpenJDK jdk 8
+  buildTool: Maven 3
+  packageTool: NA
+  preBuild: 
+  buildCommand: mvn deploy 
+  postBuild:     
+test:
+  utframework: JUnit
+  preTest: 
+  testCommand: mvn test 
+deploydeps:
+deploy:
+  serviceName: atsea-app
+  deploymentCheck: ./health.sh     
+  stickySessions: False
+  canUseLb: False
+  stablePersistence: False
+  fixedNetworkIdentifier: False
+storage:
+ports:
+envVars:
+run:
+  dockerized: True
