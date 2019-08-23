@@ -4,26 +4,28 @@ navigator:
   name:  
   email: rifat.shahnewaz@aurea.com
 repo:
-  companyName: test
+  companyName: Avolin
   productName: HANDAPPS
   repoUrl: https://github.com/trilogy-group/atsea-shop-app
   repoType: Final deployable
   githubTokenSecretId: devhub-import/atsea-shop-app/githubToken
-builddeps:
+buildDeps:
 build:
   techStack: Java
-  buildos: Ubuntu 16.04
-  toolchainVersion: OpenJDK jdk 8
+  buildOs: Ubuntu 16.04
+  toolchainVersion: OpenJDK jdk 7
   buildTool: Maven 3
-  packageTool: NA
   preBuild: 
-  buildCommand: mvn deploy 
-  postBuild:     
+  buildCommand: mvn compile 
 test:
-  utframework: JUnit
+  utFramework: JUnit
   preTest: 
   testCommand: mvn test 
-deploydeps:
+package:
+  packageTool: Maven
+  packageCommand: mvn package
+  artifactDir: ./target     
+deployDeps:
 deploy:
   serviceName: atsea-app
   deploymentCheck: ./health.sh     
@@ -34,5 +36,16 @@ deploy:
 storage:
 ports:
 envVars:
+- key: database_password
+  secret: True
+  service: False
+  devSecretId: devhub-import/atsea-shop-app/env/database_password/dev
+  stgSecretId: devhub-import/atsea-shop-app/env/database_password/stg
+  prdSecretId: devhub-import/atsea-shop-app/env/database_password/prd     
 run:
-  dockerized: True
+  dockerized: False
+  runtimeOs: Ubuntu 16.04
+  runtimeEnv: OpenJDK jre 7
+  installScript: install
+  runCommand: run
+  userName: root
