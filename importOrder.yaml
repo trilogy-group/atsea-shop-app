@@ -4,48 +4,25 @@ navigator:
   name:  
   email: rifat.shahnewaz@aurea.com
 repo:
-  companyName: Avolin
-  productName: HANDAPPS
+  companyName: Crossover
+  productName: IMPDH
   repoUrl: https://github.com/trilogy-group/atsea-shop-app
-  repoType: Final deployable
+  repoType: Distributable artifacts
   githubTokenSecretId: devhub-import/atsea-shop-app/githubToken
 buildDeps:
 build:
-  techStack: Java
-  buildOs: Ubuntu 16.04
-  toolchainVersion: OpenJDK jdk 7
-  buildTool: Maven 3
+  techStack: Python
+  buildOs: Ubuntu 18.04
+  runtimeVersion: python 3.6
+  buildTool: NA
   preBuild: 
-  buildCommand: mvn compile 
+  buildCommand:  
+buildenvVars:
 test:
-  utFramework: JUnit
+  utFramework: pytest
   preTest: 
-  testCommand: mvn test 
+  testCommand: pytest 
 package:
-  packageTool: Maven
-  packageCommand: mvn package
+  packageTool: pip
+  packageCommand: 
   artifactDir: ./target     
-deployDeps:
-deploy:
-  serviceName: atsea-app
-  deploymentCheck: ./health.sh     
-  stickySessions: False
-  canUseLb: False
-  stablePersistence: False
-  fixedNetworkIdentifier: False
-storage:
-ports:
-envVars:
-- key: database_password
-  secret: True
-  service: False
-  devSecretId: devhub-import/atsea-shop-app/env/database_password/dev
-  stgSecretId: devhub-import/atsea-shop-app/env/database_password/stg
-  prdSecretId: devhub-import/atsea-shop-app/env/database_password/prd     
-run:
-  dockerized: False
-  runtimeOs: Ubuntu 16.04
-  runtimeEnv: OpenJDK jre 7
-  installScript: install
-  runCommand: run
-  userName: root
